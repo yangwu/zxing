@@ -402,7 +402,7 @@
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>     testEncodeDecodeRandom(GenericGF.AZTEC_DATA_12, 3072, 1023);
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>   }
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> 
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> corrupt(<strong class="jxr_keyword">int</strong>[] received, <strong class="jxr_keyword">int</strong> howMany, Random random, <strong class="jxr_keyword">int</strong> max) {
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> corrupt(<strong class="jxr_keyword">int</strong>[] received, <strong class="jxr_keyword">int</strong> howMany, Random random, <strong class="jxr_keyword">int</strong> max) {
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>     BitSet corrupted = <strong class="jxr_keyword">new</strong> BitSet(received.length);
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; howMany; j++) {
 <a class="jxr_linenumber" name="L400" href="#L400">400</a>       <strong class="jxr_keyword">int</strong> location = random.nextInt(received.length);
@@ -509,12 +509,12 @@
 <a class="jxr_linenumber" name="L501" href="#L501">501</a>   }
 <a class="jxr_linenumber" name="L502" href="#L502">502</a> 
 <a class="jxr_linenumber" name="L503" href="#L503">503</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Random getPseudoRandom() {
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> SecureRandom(<strong class="jxr_keyword">new</strong> byte[] {(byte) 0xDE, (byte) 0xAD, (byte) 0xBE, (byte) 0xEF});
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Random(0xDEADBEEF);
 <a class="jxr_linenumber" name="L505" href="#L505">505</a>   }
 <a class="jxr_linenumber" name="L506" href="#L506">506</a> 
 <a class="jxr_linenumber" name="L507" href="#L507">507</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>

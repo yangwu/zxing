@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>   
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>   @Test
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGetNextSet5() {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>     Random r = <strong class="jxr_keyword">new</strong> SecureRandom(<strong class="jxr_keyword">new</strong> byte[] {(byte) 0xDE, (byte) 0xAD, (byte) 0xBE, (byte) 0xEF});
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     Random r = <strong class="jxr_keyword">new</strong> Random(0xDEADBEEF);
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>       BitArray array = <strong class="jxr_keyword">new</strong> BitArray(1 + r.nextInt(100));
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>       <strong class="jxr_keyword">int</strong> numSet = r.nextInt(20);
@@ -227,6 +227,6 @@
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>

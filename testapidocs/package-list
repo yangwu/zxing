@@ -1,5 +1,6 @@
 com.google.zxing
 com.google.zxing.aztec
+com.google.zxing.aztec.decoder
 com.google.zxing.aztec.detector
 com.google.zxing.aztec.encoder
 com.google.zxing.client.result
@@ -16,6 +17,7 @@ com.google.zxing.oned.rss.expanded
 com.google.zxing.oned.rss.expanded.decoders
 com.google.zxing.pdf417
 com.google.zxing.pdf417.decoder.ec
+com.google.zxing.pdf417.encoder
 com.google.zxing.qrcode
 com.google.zxing.qrcode.decoder
 com.google.zxing.qrcode.encoder

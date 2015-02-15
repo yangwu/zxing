@@ -45,32 +45,33 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">if</strong> (!rawText.startsWith(<span class="jxr_string">"MATMSG:"</span>)) {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      String[] rawTo = matchDoCoMoPrefixedField(<span class="jxr_string">"TO:"</span>, rawText, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">if</strong> (rawTo == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      String[] tos = matchDoCoMoPrefixedField(<span class="jxr_string">"TO:"</span>, rawText, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">if</strong> (tos == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      String to = rawTo[0];
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">if</strong> (!isBasicallyValidEmailAddress(to)) {
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      String subject = matchSingleDoCoMoPrefixedField(<span class="jxr_string">"SUB:"</span>, rawText, false);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      String body = matchSingleDoCoMoPrefixedField(<span class="jxr_string">"BODY:"</span>, rawText, false);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/zxing/client/result/EmailAddressParsedResult.html">EmailAddressParsedResult</a>(to, subject, body, <span class="jxr_string">"mailto:"</span> + to);
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>    }
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">   * This implements only the most basic checking for an email address's validity -- that it contains</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">   * an '@' and contains no characters disallowed by RFC 2822. This is an overly lenient definition of</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * validity. We want to generally be lenient here since this class is only intended to encapsulate what's</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   * in a barcode, not "judge" it.</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isBasicallyValidEmailAddress(String email) {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">return</strong> email != <strong class="jxr_keyword">null</strong> &amp;&amp; ATEXT_ALPHANUMERIC.matcher(email).matches() &amp;&amp; email.indexOf('@') &gt;= 0;
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>    }
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  }
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">for</strong> (String to : tos) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>        <strong class="jxr_keyword">if</strong> (!isBasicallyValidEmailAddress(to)) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>        }
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      String subject = matchSingleDoCoMoPrefixedField(<span class="jxr_string">"SUB:"</span>, rawText, false);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      String body = matchSingleDoCoMoPrefixedField(<span class="jxr_string">"BODY:"</span>, rawText, false);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/zxing/client/result/EmailAddressParsedResult.html">EmailAddressParsedResult</a>(tos, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, subject, body);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">   * This implements only the most basic checking for an email address's validity -- that it contains</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * an '@' and contains no characters disallowed by RFC 2822. This is an overly lenient definition of</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   * validity. We want to generally be lenient here since this class is only intended to encapsulate what's</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   * in a barcode, not "judge" it.</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isBasicallyValidEmailAddress(String email) {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">return</strong> email != <strong class="jxr_keyword">null</strong> &amp;&amp; ATEXT_ALPHANUMERIC.matcher(email).matches() &amp;&amp; email.indexOf('@') &gt;= 0;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>    }
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>

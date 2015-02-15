@@ -36,40 +36,41 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/google/zxing/client/result/URIResultParser.html">URIResultParser</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../com/google/zxing/client/result/ResultParser.html">ResultParser</a> {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern URL_WITH_PROTOCOL_PATTERN = Pattern.compile(<span class="jxr_string">"[a-zA-Z0-9]{2,}:"</span>);
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern URL_WITHOUT_PROTOCOL_PATTERN = Pattern.compile(
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>        <span class="jxr_string">"([a-zA-Z0-9&#92;&#92;-]+&#92;&#92;.)+[a-zA-Z]{2,}"</span> + <em class="jxr_comment">// host name elements</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>        <span class="jxr_string">"(:&#92;&#92;d{1,5})?"</span> + <em class="jxr_comment">// maybe port</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>        <span class="jxr_string">"(/|&#92;&#92;?|$)"</span>); <em class="jxr_comment">// query, path or nothing</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>    @Override
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">public</strong> <a href="../../../../../com/google/zxing/client/result/URIParsedResult.html">URIParsedResult</a> parse(<a href="../../../../../com/google/zxing/Result.html">Result</a> result) {
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      String rawText = getMassagedText(result);
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <em class="jxr_comment">// We specifically handle the odd "URL" scheme here for simplicity and add "URI" for fun</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_comment">// Assume anything starting this way really means to be a URI</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">if</strong> (rawText.startsWith(<span class="jxr_string">"URL:"</span>) || rawText.startsWith(<span class="jxr_string">"URI:"</span>)) {
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/zxing/client/result/URIParsedResult.html">URIParsedResult</a>(rawText.substring(4).trim(), <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      rawText = rawText.trim();
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">return</strong> isBasicallyValidURI(rawText) ? <strong class="jxr_keyword">new</strong> URIParsedResult(rawText, <strong class="jxr_keyword">null</strong>) : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>    }
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isBasicallyValidURI(String uri) {
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">if</strong> (uri.contains(<span class="jxr_string">" "</span>)) {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>        <em class="jxr_comment">// Quick hack check for a common case</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>        <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      Matcher m = URL_WITH_PROTOCOL_PATTERN.matcher(uri);
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">if</strong> (m.find() &amp;&amp; m.start() == 0) { <em class="jxr_comment">// match at start only</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      m = URL_WITHOUT_PROTOCOL_PATTERN.matcher(uri);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">return</strong> m.find() &amp;&amp; m.start() == 0;
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>    }
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  }
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <em class="jxr_comment">// See http://www.ietf.org/rfc/rfc2396.txt</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern URL_WITH_PROTOCOL_PATTERN = Pattern.compile(<span class="jxr_string">"[a-zA-Z][a-zA-Z0-9+-.]+:"</span>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern URL_WITHOUT_PROTOCOL_PATTERN = Pattern.compile(
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>        <span class="jxr_string">"([a-zA-Z0-9&#92;&#92;-]+&#92;&#92;.)+[a-zA-Z]{2,}"</span> + <em class="jxr_comment">// host name elements</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>        <span class="jxr_string">"(:&#92;&#92;d{1,5})?"</span> + <em class="jxr_comment">// maybe port</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>        <span class="jxr_string">"(/|&#92;&#92;?|$)"</span>); <em class="jxr_comment">// query, path or nothing</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    @Override
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <strong class="jxr_keyword">public</strong> <a href="../../../../../com/google/zxing/client/result/URIParsedResult.html">URIParsedResult</a> parse(<a href="../../../../../com/google/zxing/Result.html">Result</a> result) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      String rawText = getMassagedText(result);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_comment">// We specifically handle the odd "URL" scheme here for simplicity and add "URI" for fun</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_comment">// Assume anything starting this way really means to be a URI</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">if</strong> (rawText.startsWith(<span class="jxr_string">"URL:"</span>) || rawText.startsWith(<span class="jxr_string">"URI:"</span>)) {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../com/google/zxing/client/result/URIParsedResult.html">URIParsedResult</a>(rawText.substring(4).trim(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      rawText = rawText.trim();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">return</strong> isBasicallyValidURI(rawText) ? <strong class="jxr_keyword">new</strong> URIParsedResult(rawText, <strong class="jxr_keyword">null</strong>) : <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>    }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isBasicallyValidURI(String uri) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">if</strong> (uri.contains(<span class="jxr_string">" "</span>)) {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>        <em class="jxr_comment">// Quick hack check for a common case</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>        <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      }
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      Matcher m = URL_WITH_PROTOCOL_PATTERN.matcher(uri);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">if</strong> (m.find() &amp;&amp; m.start() == 0) { <em class="jxr_comment">// match at start only</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      m = URL_WITHOUT_PROTOCOL_PATTERN.matcher(uri);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">return</strong> m.find() &amp;&amp; m.start() == 0;
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>    }
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>

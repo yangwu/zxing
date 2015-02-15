@@ -167,62 +167,65 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     left += nudge;
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     <em class="jxr_comment">// But careful that this does not sample off the edge</em>
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">int</strong> nudgedTooFarRight = left + (<strong class="jxr_keyword">int</strong>) ((matrixWidth - 1) * moduleSize) - (right - 1);
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">if</strong> (nudgedTooFarRight &gt; 0) {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>       <strong class="jxr_keyword">if</strong> (nudgedTooFarRight &gt; nudge) {
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <em class="jxr_comment">// Neither way fits; abort</em>
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>       }
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>       left -= nudgedTooFarRight;
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>     }
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>     <strong class="jxr_keyword">int</strong> nudgedTooFarDown = top + (<strong class="jxr_keyword">int</strong>) ((matrixHeight - 1) * moduleSize) - (bottom - 1);
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <strong class="jxr_keyword">if</strong> (nudgedTooFarDown &gt; 0) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>       <strong class="jxr_keyword">if</strong> (nudgedTooFarDown &gt; nudge) {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <em class="jxr_comment">// Neither way fits; abort</em>
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>       }
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>       top -= nudgedTooFarDown;
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     }
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <em class="jxr_comment">// Now just read off the bits</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a> bits = <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a>(matrixWidth, matrixHeight);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> y = 0; y &lt; matrixHeight; y++) {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>       <strong class="jxr_keyword">int</strong> iOffset = top + (<strong class="jxr_keyword">int</strong>) (y * moduleSize);
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> x = 0; x &lt; matrixWidth; x++) {
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">if</strong> (image.get(left + (<strong class="jxr_keyword">int</strong>) (x * moduleSize), iOffset)) {
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>           bits.set(x, y);
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>       }
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">return</strong> bits;
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>   }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">float</strong> moduleSize(<strong class="jxr_keyword">int</strong>[] leftTopBlack, <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a> image) <strong class="jxr_keyword">throws</strong> NotFoundException {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">int</strong> height = image.getHeight();
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">int</strong> width = image.getWidth();
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">int</strong> x = leftTopBlack[0];
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">int</strong> y = leftTopBlack[1];
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <strong class="jxr_keyword">boolean</strong> inBlack = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">int</strong> transitions = 0;
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">while</strong> (x &lt; width &amp;&amp; y &lt; height) {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>       <strong class="jxr_keyword">if</strong> (inBlack != image.get(x, y)) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">if</strong> (++transitions == 5) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>           <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         }
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         inBlack = !inBlack;
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>       }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>       x++;
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>       y++;
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>     }
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">if</strong> (x == width || y == height) {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>       <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <em class="jxr_comment">// "right" is the farthest-right valid pixel location -- right+1 is not necessarily</em>
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <em class="jxr_comment">// This is positive by how much the inner x loop below would be too large</em>
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">int</strong> nudgedTooFarRight = left + (<strong class="jxr_keyword">int</strong>) ((matrixWidth - 1) * moduleSize) - right;
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">if</strong> (nudgedTooFarRight &gt; 0) {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>       <strong class="jxr_keyword">if</strong> (nudgedTooFarRight &gt; nudge) {
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <em class="jxr_comment">// Neither way fits; abort</em>
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>       }
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>       left -= nudgedTooFarRight;
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <em class="jxr_comment">// See logic above</em>
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">int</strong> nudgedTooFarDown = top + (<strong class="jxr_keyword">int</strong>) ((matrixHeight - 1) * moduleSize) - bottom;
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">if</strong> (nudgedTooFarDown &gt; 0) {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>       <strong class="jxr_keyword">if</strong> (nudgedTooFarDown &gt; nudge) {
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>         <em class="jxr_comment">// Neither way fits; abort</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>       }
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>       top -= nudgedTooFarDown;
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     }
+<a class="jxr_linenumber" name="L181" href="#L181">181</a> 
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <em class="jxr_comment">// Now just read off the bits</em>
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>     <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a> bits = <strong class="jxr_keyword">new</strong> <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a>(matrixWidth, matrixHeight);
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> y = 0; y &lt; matrixHeight; y++) {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>       <strong class="jxr_keyword">int</strong> iOffset = top + (<strong class="jxr_keyword">int</strong>) (y * moduleSize);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> x = 0; x &lt; matrixWidth; x++) {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">if</strong> (image.get(left + (<strong class="jxr_keyword">int</strong>) (x * moduleSize), iOffset)) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>           bits.set(x, y);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         }
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>       }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">return</strong> bits;
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>   }
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">float</strong> moduleSize(<strong class="jxr_keyword">int</strong>[] leftTopBlack, <a href="../../../../com/google/zxing/common/BitMatrix.html">BitMatrix</a> image) <strong class="jxr_keyword">throws</strong> NotFoundException {
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">int</strong> height = image.getHeight();
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <strong class="jxr_keyword">int</strong> width = image.getWidth();
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">int</strong> x = leftTopBlack[0];
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">int</strong> y = leftTopBlack[1];
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">boolean</strong> inBlack = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>     <strong class="jxr_keyword">int</strong> transitions = 0;
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>     <strong class="jxr_keyword">while</strong> (x &lt; width &amp;&amp; y &lt; height) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>       <strong class="jxr_keyword">if</strong> (inBlack != image.get(x, y)) {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">if</strong> (++transitions == 5) {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>           <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         }
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         inBlack = !inBlack;
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>       }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>       x++;
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>       y++;
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     }
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">return</strong> (x - leftTopBlack[0]) / 7.0f;
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>   }
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> 
-<a class="jxr_linenumber" name="L215" href="#L215">215</a> }
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">if</strong> (x == width || y == height) {
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>       <strong class="jxr_keyword">throw</strong> NotFoundException.getNotFoundInstance();
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     }
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">return</strong> (x - leftTopBlack[0]) / 7.0f;
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>   }
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>

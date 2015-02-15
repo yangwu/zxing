@@ -33,21 +33,28 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/google/zxing/ReaderException.html">ReaderException</a> <strong class="jxr_keyword">extends</strong> Exception {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>    <a href="../../../com/google/zxing/ReaderException.html">ReaderException</a>() {
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <em class="jxr_comment">// do nothing</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>    }
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <em class="jxr_comment">// Prevent stack traces from being taken</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <em class="jxr_comment">// srowen says: huh, my IDE is saying this is not an override. native methods can't be overridden?</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <em class="jxr_comment">// This, at least, does not hurt. Because we use a singleton pattern here, it doesn't matter anyhow.</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>    @Override
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Throwable fillInStackTrace() {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>    }
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  }
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>    <em class="jxr_comment">// disable stack traces when not running inside test units</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isStackTrace = System.getProperty(<span class="jxr_string">"surefire.test.class.path"</span>) != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>    <a href="../../../com/google/zxing/ReaderException.html">ReaderException</a>() {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <em class="jxr_comment">// do nothing</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    }
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>    <a href="../../../com/google/zxing/ReaderException.html">ReaderException</a>(Throwable cause) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">super</strong>(cause);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <em class="jxr_comment">// Prevent stack traces from being taken</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    <em class="jxr_comment">// srowen says: huh, my IDE is saying this is not an override. native methods can't be overridden?</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>    <em class="jxr_comment">// This, at least, does not hurt. Because we use a singleton pattern here, it doesn't matter anyhow.</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>    @Override
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Throwable fillInStackTrace() {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    }
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2007&#x2013;2014. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2007&#x2013;2015. All rights reserved.</div>
 </body>
 </html>
