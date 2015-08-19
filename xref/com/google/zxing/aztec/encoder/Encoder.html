@@ -319,7 +319,7 @@
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>       <strong class="jxr_keyword">case</strong> 12:
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>         <strong class="jxr_keyword">return</strong> GenericGF.AZTEC_DATA_12;
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>       <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Unsupported word size "</span> + wordSize);
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>     }
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>   }
 <a class="jxr_linenumber" name="L317" href="#L317">317</a> 

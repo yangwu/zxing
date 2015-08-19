@@ -61,8 +61,8 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>    }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>    
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> BufferedImage readDataURIImage(URI uri) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      String uriString = uri.toString();
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">if</strong> (!uriString.startsWith(<span class="jxr_string">"data:image/"</span>)) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      String uriString = uri.getSchemeSpecificPart();
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">if</strong> (!uriString.startsWith(<span class="jxr_string">"image/"</span>)) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(<span class="jxr_string">"Unsupported data URI MIME type"</span>);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">int</strong> base64Start = uriString.indexOf(BASE64TOKEN);

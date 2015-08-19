@@ -205,7 +205,7 @@
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getUrl(<strong class="jxr_keyword">int</strong> sizeX, <strong class="jxr_keyword">int</strong> sizeY, String ecLevel, String encoding, String content) {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     StringBuilder result = <strong class="jxr_keyword">new</strong> StringBuilder(100);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     result.append(<span class="jxr_string">"http://zxing.org/w/chart?cht=qr"</span>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>     result.append(<span class="jxr_string">"https://zxing.org/w/chart?cht=qr"</span>);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>     result.append(<span class="jxr_string">"&amp;chs="</span>).append(sizeX).append('x').append(sizeY);
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>     result.append(<span class="jxr_string">"&amp;chld="</span>).append(ecLevel);
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>     result.append(<span class="jxr_string">"&amp;choe="</span>).append(encoding);
