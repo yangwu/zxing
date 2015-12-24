@@ -2,3 +2,8 @@ target
 private
 .idea
 *.iml
+.classpath
+.project
+project.properties
+.settings/
+
