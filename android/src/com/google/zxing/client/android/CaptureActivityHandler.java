@@ -96,8 +96,15 @@ public final class CaptureActivityHandler extends Handler {
     	}else{
     		builder.setMessage(R.string.upload_failed);
     	}
-    	
-  	    builder.show();
+  	    final AlertDialog dialog = builder.show();
+  	  Handler handler = new Handler();  
+      handler.postDelayed(new Runnable() {  
+
+          public void run() {  
+        	  dialog.dismiss();  
+          }  
+      }, 1500); 
+      ((CaptureActivity)activity).restartPreviewAfterDelay(0L);
     	break;
       case R.id.restart_preview:
         restartPreviewAndDecode();
