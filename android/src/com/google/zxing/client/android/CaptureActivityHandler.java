@@ -27,6 +27,7 @@ import com.google.zxing.Result;
 import com.google.zxing.client.android.camera.CameraManager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -35,8 +36,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Map;
+
+import org.apache.http.util.ByteArrayBuffer;
+import org.apache.http.util.EncodingUtils;
 
 /**
  * This class handles all the messaging which comprises the state machine for capture.
@@ -78,6 +86,19 @@ public final class CaptureActivityHandler extends Handler {
   @Override
   public void handleMessage(Message message) {
     switch (message.what) {
+      case R.id.upload_content:
+    	  AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    	    builder.setTitle(R.string.app_name);
+    	    builder.setPositiveButton(R.string.button_ok, null);
+    	String result = (String)message.obj;
+    	if("1".equals(result)){
+    		builder.setMessage(R.string.upload_success);
+    	}else{
+    		builder.setMessage(R.string.upload_failed);
+    	}
+    	
+  	    builder.show();
+    	break;
       case R.id.restart_preview:
         restartPreviewAndDecode();
         break;
@@ -137,7 +158,7 @@ public final class CaptureActivityHandler extends Handler {
     }
   }
 
-  public void quitSynchronously() {
+public void quitSynchronously() {
     state = State.DONE;
     cameraManager.stopPreview();
     Message quit = Message.obtain(decodeThread.getHandler(), R.id.quit);

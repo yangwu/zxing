@@ -140,4 +140,8 @@
   <string name="result_wifi">找到 Wi-Fi 配置</string>
   <string name="sbc_name">Google 图书搜索</string>
   <string name="wifi_changing_network">连接到 Wi-Fi \u2026</string>
+  <string name="upload">上传</string>
+  <string name="upload_success">上传成功</string>
+  <string name="upload_failed">上传失败，重复的记录</string>
+  <string name="network_off">当前网络不可用</string>
 </resources>

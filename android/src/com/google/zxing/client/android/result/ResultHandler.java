@@ -38,10 +38,19 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Locale;
 import java.util.ArrayList;
+
+import org.apache.http.util.ByteArrayBuffer;
+import org.apache.http.util.EncodingUtils;
 
 /**
  * A base class for the Android-specific barcode handlers. These allow the app to polymorphically
@@ -441,7 +450,7 @@ public abstract class ResultHandler {
     intent.putExtra("query", query);
     launchIntent(intent);
   }
-
+  
   /**
    * Like {@link #launchIntent(Intent)} but will tell you if it is not handle-able
    * via {@link ActivityNotFoundException}.
