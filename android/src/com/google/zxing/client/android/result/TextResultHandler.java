@@ -136,7 +136,9 @@ public final class TextResultHandler extends ResultHandler {
 		public void run() {
 			// TODO Auto-generated method stub
 			  try {
-				URL url = new URL("http://byu1973140001.my3w.com/zendphp1/addTrackingData.php");
+				System.out.println("start to upload:************");
+				//120.25.88.137
+				URL url = new URL("http://wishconsole.com/addTrackingData.php");
 				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 				conn.setUseCaches(false);
 				conn.setRequestMethod("POST");
@@ -153,7 +155,7 @@ public final class TextResultHandler extends ResultHandler {
 					bArray.append(bt,0,i);
 				}
 				String webcontent = EncodingUtils.getString(bArray.toByteArray(), "utf-8");
-				
+				System.out.println("RESULT:************" + webcontent);
 				 CaptureActivity mainActivity = (CaptureActivity)getActivity();
 				  Message message = Message.obtain(mainActivity.getHandler(), R.id.upload_content);
 				  message.obj = webcontent;
